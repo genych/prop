@@ -1,0 +1,27 @@
+version: '3'
+services:
+  box:
+    container_name: php8
+    build: .
+    restart: on-failure
+    environment:
+      MYSQL_PASSWORD: user
+      MYSQL_USER: user
+      MYSQL_DATABASE: prop
+      DEFINITELY_NOT_API_KEY: 2S7rhsaq9X1cnfkMCPHX64YsWYyfe1he
+      SOME_SERVICE_URL: https://trialapi.craig.mtcdevserver.com/api/properties
+    volumes:
+      - .:/1
+    working_dir: /1
+    ports:
+      - "8000:8000"
+    command: php -S 0.0.0.0:8000 -t public
+  db:
+    image: mysql
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: hunter2
+      MYSQL_PASSWORD: user
+      MYSQL_USER: user
+      MYSQL_DATABASE: prop
