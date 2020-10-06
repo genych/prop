@@ -12,6 +12,7 @@ function controller(array $request): ?string {
     $p = new Persistence();
     $f = new Client(getenv('DEFINITELY_NOT_API_KEY'));
 
+// TODO: too much for "controller"
     if ($request['populate'] ?? false) {
         $stream = $f->fetchProperties();
         foreach ($stream['data'] ?? [] as $item) {
@@ -25,7 +26,7 @@ function controller(array $request): ?string {
                 'deal_type' => (string)$item['type']
             ]);
         }
-
+// TODO: catch them all in a loop
         return $stream['next_page_url'];
     }
 

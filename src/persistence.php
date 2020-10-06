@@ -102,12 +102,13 @@ class Persistence
             ' and ' . ($name ? 'town like :name' : 1) .
             ' and ' . ($bedrooms ? 'bedrooms = :bedrooms' : 1) .
             ' and ' . ($price ? 'price < :price' : 1) .
-            ' and ' . ($propertyType ? 'property_type = :ptype' : 1) .
-            ' and ' . ($dealType ? 'deal_type = :dtype' : 1)
+            ' and ' . ($propertyType ? 'property_type = :property_type' : 1) .
+            ' and ' . ($dealType ? 'deal_type = :deal_type' : 1)
         );
 
         $bindings = [];
 
+// TODO: avoids number of bindings mismatch. this is twisted.
         if ($name) {
             $bindings['name'] = "%$name%";
         }
@@ -118,10 +119,10 @@ class Persistence
             $bindings['price'] = $price;
         }
         if ($propertyType) {
-            $bindings['ptype'] = $propertyType;
+            $bindings['property_type'] = $propertyType;
         }
         if ($dealType) {
-            $bindings['dtype'] = $dealType;
+            $bindings['deal_type'] = $dealType;
         }
 
         $statement->execute($bindings);
